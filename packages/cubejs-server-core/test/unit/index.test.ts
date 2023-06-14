@@ -320,7 +320,7 @@ describe('index.test', () => {
     ]);
     createOrchestratorApiSpy.mockRestore();
 
-    const compilerApi = cubejsServerCore.getCompilerApi({
+    const compilerApi = await cubejsServerCore.getCompilerApi({
       authInfo: null,
       securityContext: null,
       requestId: 'XXX'
