@@ -291,7 +291,12 @@ export const clearTemplates = (): void => {
   return native.clearTemplates();
 };
 
-export const renderTemplate = (templateName: string, context: unknown): string => {
+export const renderTemplate = (fileName: string, context: unknown): string => {
   const native = loadNative();
-  return native.renderTemplate(templateName, context);
+  return native.renderTemplate(fileName, context);
+};
+
+export const pythonLoadModel = async (fileName: string, context: unknown): Promise<string> => {
+  const native = loadNative();
+  return native.pythonLoadModel(fileName, context);
 };

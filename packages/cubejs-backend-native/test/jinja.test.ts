@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import * as native from '../js';
+import {pythonLoadModel} from "../js";
 
 const suite = native.isFallbackBuild() ? xdescribe : describe;
 
@@ -30,6 +31,21 @@ function testLoadBrokenTemplateBySnapshot(templateName: string) {
     }
   });
 }
+
+suite('Python models', () => {
+  it('load utils.py', async () => {
+    const content = fs.readFileSync(path.join(process.cwd(), 'test', 'templates', 'utils.py'), 'utf8');
+    const py_module = await native.pythonLoadModel(
+        'utils.py',
+        content
+    );
+
+    expect(py_module).toEqual({
+      load_data_async: true,
+      load_data_sync: true,
+    });
+  });
+});
 
 suite('Jinja', () => {
   beforeAll(async () => {
